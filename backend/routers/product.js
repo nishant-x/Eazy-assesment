@@ -4,7 +4,7 @@ const authuser = require('../middlewares/authmiddleware')
 const { fetchproduct } = require('../controllers/productcontrollers')
 
 
-router.get("/getallproducts",  authuser , fetchproduct )
+router.get("/",  authuser , fetchproduct )
 
 
 module.exports = router;
