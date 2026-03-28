@@ -7,6 +7,8 @@ import Signup from "./pages/Signup";
 import Unauthorized from "./components/Unauthorized";
 import ProtectedRoute from "./components/ProtectedRoute";
 import FirstPage from "./pages/FirstPage";
+import AdminDashboard from "./pages/AdminDashboard";
+
 
 function App() {
   return (
@@ -23,8 +25,16 @@ function App() {
           <Route
             path="/dashboard"
             element={
-              <ProtectedRoute>
+              <ProtectedRoute allowedRole={['user' , 'admin']}>
                 <Home />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin-dashboard"
+            element={
+              <ProtectedRoute allowedRole={['admin']}>
+                <AdminDashboard />
               </ProtectedRoute>
             }
           />

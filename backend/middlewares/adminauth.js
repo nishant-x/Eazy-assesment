@@ -10,9 +10,11 @@ const authuser = (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET); // verify token
-    req.user = decoded;   
-    console.log(req.user);
-    next();               
+    req.user = decoded;  
+    
+    if(req.user.role !== 'admin') return res.status(401).json({ msg: "Access denied" });
+    next();         
+
   } catch (err) {
     return res.status(401).json({ msg: "Invalid token" });
   }

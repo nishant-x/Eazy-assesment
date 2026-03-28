@@ -10,9 +10,10 @@ function Signup() {
     password: "",
   });
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+ const handleSubmit = async (e) => {
+  e.preventDefault();
 
+  try {
     const response = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/register`, {
       method: "POST",
       headers: {
@@ -23,12 +24,16 @@ function Signup() {
 
     const data = await response.json();
 
-    if (data.ok) {
+    if (response.ok) {
       navigate("/login");
+    } else {
+      alert(data.msg);
     }
 
-    console.log(data.msg);
-  };
+  } catch (error) {
+    console.error(error);
+  }
+};
 
   return (
     <div className="flex items-center justify-center min-h-[70vh] bg-gray-50">
