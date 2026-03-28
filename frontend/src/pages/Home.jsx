@@ -13,7 +13,7 @@ function Home() {
   const fetchproducts = async () => {
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/product`,
+        `${import.meta.env.VITE_API_URL}/api/product/getallproducts`,
         {
           method: "GET",
           credentials: "include", // send cookies
