@@ -15,18 +15,20 @@ function Home() {
       const response = await fetch(
         `${import.meta.env.VITE_API_URL}/api/product`,
         {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include", // send cookie
+          method: "GET",
+          credentials: "include", // send cookies
         }
       );
 
       const product = await response.json();
 
-      setProducts(product.data);
-      
+      // Safety check
+      if (product?.data) {
+        setProducts(product.data);
+      } else {
+        setProducts([]);
+      }
+
     } catch (error) {
       console.log(error);
     }
@@ -35,9 +37,10 @@ function Home() {
   useEffect(() => {
     if (!user) {
       navigate("/login");
-    } else {
-      fetchproducts();
+      return;
     }
+
+    fetchproducts();
   }, [user]);
 
   return (
@@ -50,8 +53,8 @@ function Home() {
         </h2>
 
         <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-          {products.map((product) => (
-            <ProductCard key={product._id} product={product} />
+          {products?.map((product) => (
+            <ProductCard key={product.id} product={product} />
           ))}
         </div>
       </div>

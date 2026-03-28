@@ -76,8 +76,8 @@ const loginUser = async (req, res) => {
 
     res.cookie("token", token, {
       httpOnly: true,
-      sameSite: "lax",
-      secure: false
+      secure: true,
+      sameSite: "None"
     });
 
     logger.info(`User logged in: ${email}`);
