@@ -12,23 +12,11 @@ function Home() {
 
   const fetchproducts = async () => {
     try {
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/product/getallproducts`,
-        {
-          method: "GET",
-          credentials: "include", // send cookies
-        }
-      );
+      const response = await fetch("https://fakestoreapi.com/products");
 
-      const product = await response.json();
+      const data = await response.json();
 
-      // Safety check
-      if (product?.data) {
-        setProducts(product.data);
-      } else {
-        setProducts([]);
-      }
-
+      setProducts(data);
     } catch (error) {
       console.log(error);
     }
